@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<main>
+    {% if movies is none %}
+        <p>No matching movie.</p>
+    {% else %}
+    <table>
+        <tr>
+            <th>Movie Title</th>
+            <th>Year</th>
+            <th>Director</th>
+            <th>Actors</th>
+            <th>Genres</th>
+        </tr>
+        {% for movie in movies %}
+            <tr>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.year }}</td>
+                <td>{{ movie.director.director_full_name}}</td>
+                {% for actor in movie.actors %}
+                    <td>{{ actor.actor_full_name }}</td>
+                {% endfor %}
+                {% for genre in movie.genres %}
+                    <td>{{ genre.genre_name }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</main>
+
+{% endblock %}

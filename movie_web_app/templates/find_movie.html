@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<html>
+	<div>
+		<form method = "POST" action = "{{handler_url}}">
+			{{form.csrf_token}}
+			{% if search_type == 'movie_title' %}
+				<div> {{form.movie_title.label}} {{form.movie_title}}
+					</div>
+			{% elif search_type == 'director_name' %}
+				<div> {{form.director_name.label}} {{form.director_name}}
+					</div>
+			{% elif search_type == 'actor_name' %}
+				<div> {{form.actor_name.label}} {{form.actor_name}}
+					</div>
+			{% elif search_type == 'genre_name' %}
+				<div> {{form.genre_name.label}} {{form.genre_name}}
+					</div>
+			{% endif %}
+			{{form.submit}}
+		</form>
+	</div>
+</html>
+{% endblock %}

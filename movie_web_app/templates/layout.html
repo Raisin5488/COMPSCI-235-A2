@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COMPSCI 235-flix</title>
+</head>
+<body>
+    <header>
+        <h1>COMPSCI 235-flix</h1>
+    </header>
+    <div>
+
+    </div>
+    <div>
+        <ul>
+            <li><a href="{{ list_movies_url }}">List all movies</a></li>
+            <li><a href="{{ find_movie_title_url }}">Find movie by title</a></li>
+            <li><a href="{{ find_movie_director_url }}">Find movie by director</a></li>
+            <li><a href="{{ find_movie_actor_url }}">Find movie by actor</a></li>
+            <li><a href="{{ find_movie_genre_url }}">Find movie by genre</a></li>
+			<li><a href="{{ register_url }}">Register</a></li>
+            <li><a href="{{ login_url }}">Login</a></li>
+            <li><a href="{{ logout_url }}">Logout</a></li>
+        </ul>
+    </div>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
