@@ -109,7 +109,7 @@ class MovieFileCSVReader(AbstractRepository):
             self._current += 1
             return self.__dataset_of_movies[self._current-1]
 
-    def get_movie_title(self, movie_title : str):
+    def get_movie_title(self, movie_title: str):
         return_list = []
         for movie in self.__dataset_of_movies:
             if movie.title == movie_title:
@@ -119,7 +119,7 @@ class MovieFileCSVReader(AbstractRepository):
         else:
             return return_list
 
-    def get_director_name(self, director_to_find : str):
+    def get_director_name(self, director_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
             if movie.find_director(Director(director_to_find)):
@@ -129,7 +129,7 @@ class MovieFileCSVReader(AbstractRepository):
         else:
             return return_list
 
-    def get_actor_name(self, actor_to_find : str):
+    def get_actor_name(self, actor_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
             if movie.find_actor(Actor(actor_to_find)):
@@ -139,7 +139,7 @@ class MovieFileCSVReader(AbstractRepository):
         else:
             return return_list
 
-    def get_genre_name(self, genre_to_find : str):
+    def get_genre_name(self, genre_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
             if movie.find_genre(Genre(genre_to_find)):
@@ -154,4 +154,3 @@ class MovieFileCSVReader(AbstractRepository):
 
     def get_user(self, username) -> User:
         return next((user for user in self._users if user.username == username), None)
-

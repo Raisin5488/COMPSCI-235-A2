@@ -11,7 +11,7 @@ class Genre:
         return self.__genre_name
 
     @genre_name.setter
-    def genre_name(self, genre_name: str) -> str:
+    def genre_name(self, genre_name: str):
         if genre_name == "" or type(genre_name) is not str:
             self.__genre_name = None
         else:
@@ -30,4 +30,3 @@ class Genre:
 
     def __hash__(self):
         return hash(self.genre_name)
-

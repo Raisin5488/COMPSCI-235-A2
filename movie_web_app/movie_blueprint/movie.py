@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, StringField, PasswordField
+from wtforms import SubmitField, StringField, PasswordField
 from wtforms.validators import DataRequired, Length, ValidationError
 from password_validator import PasswordValidator
 import movie_web_app.adapters.repository as repo
@@ -10,12 +10,14 @@ movie_blueprint = Blueprint(
     'movie_bp', __name__
 )
 
+
 class SearchForm(FlaskForm):
     movie_title = StringField('Movie title')
     director_name = StringField('Director name')
     actor_name = StringField('Actor name')
     genre_name = StringField('Genre name')
     submit = SubmitField('Find')
+
 
 class PasswordValid:
     def __init__(self, message=None):
@@ -34,6 +36,7 @@ class PasswordValid:
             if not schema.validate(field.data):
                 raise ValidationError(self.message)
 
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', [
         DataRequired(message='Your username is required'),
@@ -42,6 +45,7 @@ class RegistrationForm(FlaskForm):
         DataRequired(message='Your password is required'),
         PasswordValid()])
     submit = SubmitField('Register')
+
 
 @movie_blueprint.route('/')
 def home():
@@ -56,6 +60,7 @@ def home():
         login_url=url_for('authentication_bp.login'),
         logout_url=url_for('authentication_bp.logout')
     )
+
 
 @movie_blueprint.route('/list')
 def list_movies():
@@ -72,8 +77,9 @@ def list_movies():
         movies=repo.repo_instance
     )
 
+
 @movie_blueprint.route('/find_movie_title', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def find_movie_title():
     form = SearchForm()
     if form.validate_on_submit():
@@ -106,8 +112,9 @@ def find_movie_title():
             search_type='movie_title'
         )
 
+
 @movie_blueprint.route('/find_movie_director', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def find_movie_director():
     form = SearchForm()
     if form.validate_on_submit():
@@ -142,7 +149,7 @@ def find_movie_director():
 
 
 @movie_blueprint.route('/find_movie_actor', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def find_movie_actor():
     form = SearchForm()
     if form.validate_on_submit():
@@ -175,8 +182,9 @@ def find_movie_actor():
             search_type='actor_name'
         )
 
+
 @movie_blueprint.route('/find_movie_genre', methods=['GET', 'POST'])
-#@login_required
+# @login_required
 def find_movie_genre():
     form = SearchForm()
     if form.validate_on_submit():
@@ -208,4 +216,3 @@ def find_movie_genre():
             form=form,
             search_type='genre_name'
         )
-

@@ -1,5 +1,5 @@
 from datetime import datetime
-from people_web_app.domain.movie import Movie
+from movie_web_app.domain.movie import Movie
 
 
 class Review:
@@ -43,4 +43,3 @@ class Review:
                     if self.timestamp == other.timestamp:
                         return True
         return False
-

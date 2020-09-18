@@ -15,6 +15,7 @@ import movie_web_app.adapters.repository as repo
 authentication_blueprint = Blueprint(
     'authentication_bp', __name__, url_prefix='/authentication')
 
+
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
@@ -31,6 +32,7 @@ def logout_required(view):
             return redirect(url_for('authentication_bp.logout'))
         return view(**kwargs)
     return wrapped_view
+
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
 @logout_required
@@ -53,7 +55,7 @@ def register():
     return render_template(
         'credentials.html',
         list_movies_url=url_for('movie_bp.list_movies'),
-        find_movie_url=url_for('movie_bp.find_movie'),
+        find_movie_title_url=url_for('movie_bp.find_movie_title'),
         find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
         find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
         register_url=url_for('authentication_bp.register'),
@@ -99,7 +101,7 @@ def login():
     return render_template(
         'credentials.html',
         list_movies_url=url_for('movie_bp.list_movies'),
-        find_movie_url=url_for('movie_bp.find_movie'),
+        find_movie_title_url=url_for('movie_bp.find_movie_title'),
         find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
         find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
         register_url=url_for('authentication_bp.register'),

@@ -1,4 +1,5 @@
-from typing import List, Iterable
+from typing import Iterable
+
 
 class Person:
     def __init__(self, id_number: int, firstname: str, lastname: str):
@@ -17,6 +18,7 @@ class Person:
     @property
     def lastname(self) -> str:
         return self._lastname
+
 
 class User:
     def __init__(

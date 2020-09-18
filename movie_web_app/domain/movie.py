@@ -2,9 +2,10 @@ from movie_web_app.domain.actor import Actor
 from movie_web_app.domain.director import Director
 from movie_web_app.domain.genre import Genre
 
+
 class Movie:
 
-    def __init__(self, title: str, year : int):
+    def __init__(self, title: str, year: int):
         if title == "" or type(title) is not str:
             self.__title = None
         else:
@@ -70,14 +71,14 @@ class Movie:
         return self.__metascore
 
     @description.setter
-    def description(self, description : str):
+    def description(self, description: str):
         if type(description) is not str:
             return
         else:
             self.__description = description.strip()
 
     @director.setter
-    def director(self, director : Director):
+    def director(self, director: Director):
         if type(director) is not Director:
             return
         else:
@@ -102,7 +103,7 @@ class Movie:
         self.__genres = genres
 
     @runtime_minutes.setter
-    def runtime_minutes(self, runtime_minutes : int):
+    def runtime_minutes(self, runtime_minutes: int):
         if type(runtime_minutes) is not int:
             raise ValueError
         elif runtime_minutes < 0:
@@ -166,38 +167,37 @@ class Movie:
             else:
                 return hash(self.title + str(self.year))
 
-    def add_actor(self, actor : Actor):
+    def add_actor(self, actor: Actor):
         if type(actor) is not Actor:
             return
         else:
             self.actors.append(actor)
 
-    def remove_actor(self, actor : Actor):
+    def remove_actor(self, actor: Actor):
         if actor in self.actors:
             self.actors.remove(actor)
 
-    def add_genre(self, genre : Genre):
+    def add_genre(self, genre: Genre):
         if type(genre) is not Genre:
             return
         else:
             self.genres.append(genre)
 
-    def remove_genre(self, genre : Genre):
+    def remove_genre(self, genre: Genre):
         if genre in self.genres:
             self.genres.remove(genre)
 
-    def find_director(self, director : Director):
+    def find_director(self, director: Director):
         if self.director == director:
             return True
         return False
 
-    def find_actor(self, actor : Actor):
+    def find_actor(self, actor: Actor):
         if actor in self.actors:
             return True
         return False
 
-    def find_genre(self, genre : Genre):
+    def find_genre(self, genre: Genre):
         if genre in self.genres:
             return True
         return False
-

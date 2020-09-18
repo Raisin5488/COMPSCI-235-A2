@@ -16,11 +16,14 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def __next__(self) -> Person:
         raise NotImplementedError
+
+
 """
     @abc.abstractmethod
     def get_person(self, id: int):
         raise NotImplementedError
 """
+
 
 class PeopleRepository(AbstractRepository):
     def __init__(self, *args):
@@ -41,8 +44,8 @@ class PeopleRepository(AbstractRepository):
             self._current += 1
             return self._people[self._current-1]
 
-    def get_person(self, id: int):
-        return next((person for person in self._people if person.id_number == id), None)
+    def get_person(self, person_id: int):
+        return next((person for person in self._people if person.id_number == person_id), None)
 
     def get_person_firstname(self, firstname: str):
         return next((person for person in self._people if person.firstname == firstname), None)

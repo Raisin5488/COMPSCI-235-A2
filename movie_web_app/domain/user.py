@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, user_name : str, password : str):
+    def __init__(self, user_name: str, password: str):
         self.__user_name = user_name.strip().lower()
         self.__password = password
         self.__watched_movies = []
@@ -47,4 +47,3 @@ class User:
 
     def add_review(self, review):
         self.reviews.append(review)
-

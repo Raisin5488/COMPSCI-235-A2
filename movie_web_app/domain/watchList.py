@@ -36,4 +36,3 @@ class WatchList:
     def __next__(self):
         self.number += 1
         return self.movie_list[self.number]
-
