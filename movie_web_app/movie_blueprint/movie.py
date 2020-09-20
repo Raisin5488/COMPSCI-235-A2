@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, PasswordField
 from wtforms.validators import DataRequired, Length, ValidationError
@@ -58,7 +58,9 @@ def home():
         find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
         register_url=url_for('authentication_bp.register'),
         login_url=url_for('authentication_bp.login'),
-        logout_url=url_for('authentication_bp.logout')
+        logout_url=url_for('authentication_bp.logout'),
+        watch_list_url=url_for('movie_bp.watch_list'),
+        add_watch_list_url=url_for('movie_bp.add_watch_list'),
     )
 
 
@@ -215,4 +217,58 @@ def find_movie_genre():
             handler_url=url_for('movie_bp.find_movie_genre'),
             form=form,
             search_type='genre_name'
+        )
+
+
+@movie_blueprint.route('/watch_list', methods=['GET'])
+@login_required
+def watch_list():
+    return render_template(
+        'list_movies.html',
+        list_movies_url=url_for('movie_bp.list_movies'),
+        find_movie_title_url=url_for('movie_bp.find_movie_title'),
+        find_movie_director_url=url_for('movie_bp.find_movie_director'),
+        find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
+        find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
+        register_url=url_for('authentication_bp.register'),
+        login_url=url_for('authentication_bp.login'),
+        logout_url=url_for('authentication_bp.logout'),
+        movies=repo.repo_instance.get_user(session['username']).get_watch_list()
+    )
+
+
+@movie_blueprint.route('/add_watch_list', methods=['GET', 'Post'])
+@login_required
+def add_watch_list():
+    form = SearchForm()
+    if form.validate_on_submit():
+        movie = repo.repo_instance.get_exact_movie(form.movie_title.data)
+        if movie is not None:
+            repo.repo_instance.get_user(session['username']).get_watch_list().add_movie(movie)
+        return render_template(
+            'list_movies.html',
+            list_movies_url=url_for('movie_bp.list_movies'),
+            find_movie_title_url=url_for('movie_bp.find_movie_title'),
+            find_movie_director_url=url_for('movie_bp.find_movie_director'),
+            find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
+            find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
+            register_url=url_for('authentication_bp.register'),
+            login_url=url_for('authentication_bp.login'),
+            logout_url=url_for('authentication_bp.logout'),
+            movies=repo.repo_instance.get_user(session['username']).get_watch_list()
+        )
+    else:
+        return render_template(
+            'find_movie.html',
+            list_movies_url=url_for('movie_bp.list_movies'),
+            find_movie_title_url=url_for('movie_bp.find_movie_title'),
+            find_movie_director_url=url_for('movie_bp.find_movie_director'),
+            find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
+            find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
+            register_url=url_for('authentication_bp.register'),
+            login_url=url_for('authentication_bp.login'),
+            logout_url=url_for('authentication_bp.logout'),
+            handler_url=url_for('movie_bp.add_watch_list'),
+            form=form,
+            search_type='movie_title'
         )

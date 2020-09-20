@@ -30,9 +30,12 @@ class WatchList:
             return self.movie_list[0]
 
     def __iter__(self):
-        self.number = -1
+        self._current = 0
         return self
 
     def __next__(self):
-        self.number += 1
-        return self.movie_list[self.number]
+        if self._current >= len(self.movie_list):
+            raise StopIteration
+        else:
+            self._current += 1
+            return self.movie_list[self._current-1]

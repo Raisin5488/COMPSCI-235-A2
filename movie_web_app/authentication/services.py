@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from movie_web_app.adapters.repository import AbstractRepository
-from movie_web_app.domain.model import User
+from movie_web_app.domain.user import User
 
 
 class NameNotUniqueException(Exception):

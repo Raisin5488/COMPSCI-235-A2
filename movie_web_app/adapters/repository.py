@@ -1,8 +1,8 @@
 import abc
 from typing import List
 
-from movie_web_app.domain.model import Person, User
-
+from movie_web_app.domain.user import User
+from movie_web_app.domain.model import Person
 
 repo_instance = None
 

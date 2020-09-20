@@ -1,14 +1,19 @@
+from movie_web_app.domain.watchList import WatchList
+
+
 class User:
-    def __init__(self, user_name: str, password: str):
-        self.__user_name = user_name.strip().lower()
+    def __init__(self, username: str, password: str):
+        self.__username = username.strip().lower()
         self.__password = password
         self.__watched_movies = []
         self.__reviews = []
         self.__time_spent_watching_movies_minutes = 0
+        self.__watch_list = WatchList()
+
 
     @property
-    def user_name(self) -> str:
-        return self.__user_name
+    def username(self) -> str:
+        return self.__username
 
     @property
     def password(self) -> str:
@@ -25,6 +30,10 @@ class User:
     @property
     def time_spent_watching_movies_minutes(self) -> int:
         return self.__time_spent_watching_movies_minutes
+
+    @property
+    def watch_list(self) -> WatchList:
+        return self.__watch_list
 
     def __repr__(self):
         return "<User {}>".format(self.user_name)
@@ -47,3 +56,6 @@ class User:
 
     def add_review(self, review):
         self.reviews.append(review)
+
+    def get_watch_list(self):
+        return self.watch_list
