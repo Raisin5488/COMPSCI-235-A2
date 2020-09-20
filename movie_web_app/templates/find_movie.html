@@ -17,6 +17,11 @@
 			{% elif search_type == 'genre_name' %}
 				<div> {{form.genre_name.label}} {{form.genre_name}}
 					</div>
+			{% elif search_type == 'movie_title_year' %}
+				<div> {{form.movie_title.label}} {{form.movie_title}}
+					</div>
+				<div> {{form.year.label}} {{form.year}}
+					</div>
 			{% endif %}
 			{{form.submit}}
 		</form>

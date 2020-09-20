@@ -54,17 +54,10 @@ def register():
     # For a GET or a failed POST request, return the Registration Web page.
     return render_template(
         'credentials.html',
-        list_movies_url=url_for('movie_bp.list_movies'),
-        find_movie_title_url=url_for('movie_bp.find_movie_title'),
-        find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
-        find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
-        register_url=url_for('authentication_bp.register'),
-        login_url=url_for('authentication_bp.login'),
-        logout_url=url_for('authentication_bp.logout'),
         title='Register',
         form=form,
         username_error_message=username_not_unique,
-        handler_url=url_for('authentication_bp.register'),
+        handler_url=url_for('authentication_bp.register')
     )
 
 
@@ -100,13 +93,6 @@ def login():
     # For a GET or a failed POST, return the Login Web page.
     return render_template(
         'credentials.html',
-        list_movies_url=url_for('movie_bp.list_movies'),
-        find_movie_title_url=url_for('movie_bp.find_movie_title'),
-        find_movie_actor_url=url_for('movie_bp.find_movie_actor'),
-        find_movie_genre_url=url_for('movie_bp.find_movie_genre'),
-        register_url=url_for('authentication_bp.register'),
-        login_url=url_for('authentication_bp.login'),
-        logout_url=url_for('authentication_bp.logout'),
         title='Login',
         username_error_message=username_not_recognised,
         password_error_message=password_does_not_match_username,

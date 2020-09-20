@@ -155,8 +155,8 @@ class MovieFileCSVReader(AbstractRepository):
     def get_user(self, username) -> User:
         return next((user for user in self._users if user.username == username), None)
 
-    def get_exact_movie(self, title: str):
+    def get_exact_movie(self, title: str, year: int):
         for movie in self.__dataset_of_movies:
-            if movie.title == title:
+            if movie.title == title and movie.year == year:
                 return movie
         return None

@@ -17,5 +17,4 @@ def create_app():
         app.register_blueprint(movie.movie_blueprint)
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
-    
     return app

@@ -9,20 +9,25 @@
         <h1>COMPSCI 235-flix</h1>
     </header>
     <div>
+        {% if session.logged_in %}
+            Not logged in
+        {% else %}
+            Current user: {{session.username}}
+        {% endif %}
     </div>
     <div>
         <ul>
-            <li><a href="{{ list_movies_url }}">List all movies</a></li>
-            <li><a href="{{ find_movie_title_url }}">Find movie by title</a></li>
-            <li><a href="{{ find_movie_director_url }}">Find movie by director</a></li>
-            <li><a href="{{ find_movie_actor_url }}">Find movie by actor</a></li>
-            <li><a href="{{ find_movie_genre_url }}">Find movie by genre</a></li>
-			<li><a href="{{ register_url }}">Register</a></li>
-            <li><a href="{{ login_url }}">Login</a></li>
-            <li><a href="{{ logout_url }}">Logout</a></li>
-            <li><a href="{{ watch_list_url }}">Watch List</a></li>
-            <li><a href="{{ add_watch_list_url }}">Add movies to Watch List</a></li>
-
+            <li><a href="http://localhost:5000/list">List all movies</a></li>
+            <li><a href="http://localhost:5000/find_movie_title">Find movie by title</a></li>
+            <li><a href="http://localhost:5000/find_movie_director">Find movie by director</a></li>
+            <li><a href="http://localhost:5000/find_movie_actor">Find movie by actor</a></li>
+            <li><a href="http://localhost:5000/find_movie_genre">Find movie by genre</a></li>
+			<li><a href="http://localhost:5000/authentication/register">Register</a></li>
+            <li><a href="http://localhost:5000/authentication/login">Login</a></li>
+            <li><a href="http://localhost:5000/authentication/logout">Logout</a></li>
+            <li><a href="http://localhost:5000/watch_list">Watch List</a></li>
+            <li><a href="http://localhost:5000/add_watch_list">Add movies to Watch List</a></li>
+            <li><a href="http://localhost:5000/remove_watch_list">Remove movies in Watch List</a></li>
         </ul>
     </div>
     <div>
