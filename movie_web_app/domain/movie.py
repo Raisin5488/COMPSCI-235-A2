@@ -186,25 +186,3 @@ class Movie:
     def remove_genre(self, genre: Genre):
         if genre in self.genres:
             self.genres.remove(genre)
-
-    def find_title(self, title_to_find: str):
-        if title_to_find.lower().strip() in self.title.lower():
-            return True
-        return False
-
-    def find_director(self, director_to_find: str):
-        if director_to_find.lower().strip() in self.director.director_full_name.lower():
-            return True
-        return False
-
-    def find_actor(self, actor_to_find: str):
-        for actor in self.actors:
-            if actor_to_find.lower().strip() in actor.actor_full_name.lower():
-                return True
-        return False
-
-    def find_genre(self, genre_to_find: str):
-        for genre in self.genres:
-            if genre_to_find.lower().strip() in genre.genre_name.lower():
-                return True
-        return False

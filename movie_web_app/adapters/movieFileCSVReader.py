@@ -7,6 +7,56 @@ from movie_web_app.domain.user import User
 from movie_web_app.adapters.repository import AbstractRepository
 
 
+def fuzzy_search(compare, set_string):
+    set_string = set_string.lower()
+    compare = compare.lower()
+
+    if remove_letters(compare, set_string):
+        return True
+    elif swap_letters(compare, set_string):
+        return True
+    elif add_letters(compare, set_string):
+        return True
+    else:
+        return False
+
+
+def get_letters():
+    list = [" "]
+    for i in range(97, 123):
+        list.append(chr(i))
+    return list
+
+
+def remove_letters(compare, set_string):
+    for i in range(1, len(compare)):
+        if compare[:i - 1] in set_string and compare[i:] in set_string:
+            return True
+    return False
+
+
+def swap_letters(compare, set_string):
+    if compare == set_string:
+        return True
+    for i in range(0, len(compare) - 1):
+        temp = compare[:i] + compare[i + 1] + compare[i] + compare[i + 2:]
+        if temp in set_string:
+            return True
+    return False
+
+
+def add_letters(compare, set_string):
+    if compare == set_string:
+        return True
+    list = get_letters()
+    for i in list:
+        for j in range(0, len(compare) + 1):
+            temp = compare[:j] + i + compare[j:]
+            if temp in set_string:
+                return True
+    return False
+
+
 class MovieFileCSVReader(AbstractRepository):
 
     def __init__(self, file_name: str):
@@ -112,7 +162,7 @@ class MovieFileCSVReader(AbstractRepository):
     def get_movie_title(self, movie_title: str):
         return_list = []
         for movie in self.__dataset_of_movies:
-            if movie.find_title(movie_title):
+            if fuzzy_search(movie_title, movie.title):
                 return_list.append(movie)
         if not return_list:
             return None
@@ -122,7 +172,7 @@ class MovieFileCSVReader(AbstractRepository):
     def get_director_name(self, director_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
-            if movie.find_director(director_to_find):
+            if fuzzy_search(director_to_find, movie.director.director_full_name):
                 return_list.append(movie)
         if not return_list:
             return None
@@ -132,8 +182,9 @@ class MovieFileCSVReader(AbstractRepository):
     def get_actor_name(self, actor_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
-            if movie.find_actor(actor_to_find):
-                return_list.append(movie)
+            for actor in movie.actors:
+                if fuzzy_search(actor_to_find, actor.actor_full_name):
+                    return_list.append(movie)
         if not return_list:
             return None
         else:
@@ -142,8 +193,9 @@ class MovieFileCSVReader(AbstractRepository):
     def get_genre_name(self, genre_to_find: str):
         return_list = []
         for movie in self.__dataset_of_movies:
-            if movie.find_genre(genre_to_find):
-                return_list.append(movie)
+            for genre in movie.genres:
+                if fuzzy_search(genre_to_find, genre.genre_name):
+                    return_list.append(movie)
         if not return_list:
             return None
         else:
