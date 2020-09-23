@@ -3,7 +3,7 @@ from movie_web_app.domain.movie import Movie
 
 
 class Review:
-    def __init__(self, movie: Movie, review_text: str, rating: int):
+    def __init__(self, movie: str, review_text: str, rating: int, user: str):
         self.__movie = movie
         if type(review_text) is not str:
             self.__review_text = ""
@@ -16,6 +16,7 @@ class Review:
         else:
             self.__rating = rating
         self.__timestamp = datetime.now()
+        self.__user = user
 
     @property
     def movie(self) -> Movie:
@@ -32,6 +33,10 @@ class Review:
     @property
     def timestamp(self):
         return self.__timestamp
+
+    @property
+    def user(self):
+        return self.__user
 
     def __repr__(self):
         return "{}\n{}\n{}\n{}".format(str(self.movie), self.review_text, str(self.rating), self.timestamp)

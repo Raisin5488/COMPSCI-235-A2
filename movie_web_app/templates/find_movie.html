@@ -22,6 +22,15 @@
 					</div>
 				<div> {{form.year.label}} {{form.year}}
 					</div>
+			{% elif search_type == 'add_review' %}
+				<div> {{form.movie_title.label}} {{form.movie_title}}
+					</div>
+				<div> {{form.year.label}} {{form.year}}
+					</div>
+				<div> {{form.review_text.label}} {{form.review_text}}
+					</div>
+				<div> {{form.rating.label}} {{form.rating}}
+					</div>
 			{% endif %}
 			{{form.submit}}
 		</form>

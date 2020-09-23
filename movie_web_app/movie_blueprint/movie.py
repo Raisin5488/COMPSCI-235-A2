@@ -17,6 +17,8 @@ class SearchForm(FlaskForm):
     actor_name = StringField('Actor name')
     genre_name = StringField('Genre name')
     year = IntegerField('Year')
+    rating = IntegerField('Rating')
+    review_text = StringField('Review text')
     submit = SubmitField('Find')
 
 
@@ -183,4 +185,33 @@ def remove_watch_list():
             handler_url=url_for('movie_bp.remove_watch_list'),
             form=form,
             search_type='movie_title_year'
+        )
+
+
+@movie_blueprint.route('/list_reviews', methods=['GET'])
+def list_reviews():
+    return render_template(
+        'list_reviews.html',
+        reviews=repo.repo_instance.get_reviews()
+    )
+
+
+@movie_blueprint.route('/add_reviews', methods=['GET', 'POST'])
+@login_required
+def add_reviews():
+    form = SearchForm()
+    if form.validate_on_submit():
+        movie = repo.repo_instance.get_exact_movie(form.movie_title.data, form.year.data)
+        if movie is not None:
+            repo.repo_instance.add_review(form.movie_title.data, form.review_text.data, form.rating.data, session['username'])
+        return render_template(
+            'list_reviews.html',
+            reviews=repo.repo_instance.get_reviews()
+        )
+    else:
+        return render_template(
+            'find_movie.html',
+            handler_url=url_for('movie_bp.add_reviews'),
+            form=form,
+            search_type='add_review'
         )

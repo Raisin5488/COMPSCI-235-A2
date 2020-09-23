@@ -3,6 +3,7 @@ from movie_web_app.domain.actor import Actor
 from movie_web_app.domain.director import Director
 from movie_web_app.domain.genre import Genre
 from movie_web_app.domain.movie import Movie
+from movie_web_app.domain.review import Review
 from movie_web_app.domain.user import User
 from movie_web_app.adapters.repository import AbstractRepository
 
@@ -79,6 +80,7 @@ class MovieFileCSVReader(AbstractRepository):
         self.read_csv_file()
 
         self._users = []
+        self._reviews = []
 
     def read_csv_file(self):
         with open(self.__file_name, mode='r', encoding='utf-8-sig') as csvfile:
@@ -212,3 +214,9 @@ class MovieFileCSVReader(AbstractRepository):
             if movie.title == title and movie.year == year:
                 return movie
         return None
+
+    def get_reviews(self):
+        return self._reviews
+
+    def add_review(self, movie: str, review_text: str, rating: int, user: str):
+        self._reviews.append(Review(movie, review_text, rating, user))
