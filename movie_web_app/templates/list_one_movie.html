@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<main>
+    <p>Title: {{ movie.title }}</p>
+    <p>Year: {{ movie.year }}</p>
+    <p>Description: {{ movie.description }}</p>
+    <p>Director: {{ movie.director }}</p>
+    <p>Actors: {{ movie.actors }}</p>
+    <p>Genres: {{ movie.genres }}</p>
+    <p>Runtime: {{ movie.runtime_minutes }}</p>
+    <p>Rating: {{ movie.rating }}</p>
+    <p>Votes: {{ movie.votes }}</p>
+    <p>Revenue: {{ movie.revenue_millions }}</p>
+    <p>Metascore: {{ movie.metascore }}</p>
+</main>
+
+{% endblock %}

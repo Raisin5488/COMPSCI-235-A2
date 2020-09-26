@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Length, ValidationError
 from password_validator import PasswordValidator
 import movie_web_app.adapters.repository as repo
 from movie_web_app.authentication.authentication import login_required
+from flask import request
 
 movie_blueprint = Blueprint(
     'movie_bp', __name__
@@ -215,3 +216,12 @@ def add_reviews():
             form=form,
             search_type='add_review'
         )
+
+
+@movie_blueprint.route('/list_one_movie/title=<title>&year=<year>', methods=['GET', 'POST'])
+def list_one_movie(title, year):
+    print(title, year)
+    return render_template(
+        'list_one_movie.html',
+        movie=repo.repo_instance.get_exact_movie(str(title), int(year))
+    )

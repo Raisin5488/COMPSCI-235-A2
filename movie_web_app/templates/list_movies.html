@@ -10,21 +10,11 @@
         <tr>
             <th>Movie Title</th>
             <th>Year</th>
-            <th>Director</th>
-            <th>Actors</th>
-            <th>Genres</th>
         </tr>
         {% for movie in movies %}
             <tr>
-                <td>{{ movie.title }}</td>
+                <td><a href="http://localhost:5000/list_one_movie/title={{movie.title}}&year={{movie.year}}">{{ movie.title }}</a></td>
                 <td>{{ movie.year }}</td>
-                <td>{{ movie.director.director_full_name}}</td>
-                {% for actor in movie.actors %}
-                    <td>{{ actor.actor_full_name }}</td>
-                {% endfor %}
-                {% for genre in movie.genres %}
-                    <td>{{ genre.genre_name }}</td>
-                {% endfor %}
             </tr>
         {% endfor %}
     </table>
