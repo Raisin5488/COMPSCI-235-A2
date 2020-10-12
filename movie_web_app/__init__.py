@@ -9,7 +9,7 @@ def create_app():
     app = Flask(__name__)
     
     app.config.from_object('config.Config')
-    
+
     repo.repo_instance = MovieFileCSVReader("movie_web_app/adapters/Data1000Movies.csv")
 
     with app.app_context():
