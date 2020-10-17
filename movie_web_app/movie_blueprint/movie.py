@@ -58,11 +58,18 @@ def home():
     )
 
 
-@movie_blueprint.route('/list')
-def list_movies():
+@movie_blueprint.route('/list/number=<number>')
+def list_movies(number):
+    list = []
+    for i in range(0, 100):
+        try:
+            list.append(repo.repo_instance.dataset_of_movies[i+100*int(number)])
+        except IndexError:
+            pass
     return render_template(
-        'list_movies.html',
-        movies=repo.repo_instance
+        'list_browse_movies.html',
+        movies=list,
+        current_number=int(number)
     )
 
 
@@ -220,7 +227,6 @@ def add_reviews():
 
 @movie_blueprint.route('/list_one_movie/title=<title>&year=<year>', methods=['GET', 'POST'])
 def list_one_movie(title, year):
-    print(title, year)
     return render_template(
         'list_one_movie.html',
         movie=repo.repo_instance.get_exact_movie(str(title), int(year))
