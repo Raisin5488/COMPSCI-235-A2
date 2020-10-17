@@ -163,9 +163,14 @@ class MovieFileCSVReader(AbstractRepository):
 
     def get_movie_title(self, movie_title: str):
         return_list = []
-        for movie in self.__dataset_of_movies:
-            if fuzzy_search(movie_title, movie.title):
-                return_list.append(movie)
+        if len(movie_title) <= 5:
+            for movie in self.__dataset_of_movies:
+                if movie_title.lower() in movie.title.lower():
+                    return_list.append(movie)
+        else:
+            for movie in self.__dataset_of_movies:
+                if fuzzy_search(movie_title, movie.title):
+                    return_list.append(movie)
         if not return_list:
             return None
         else:
