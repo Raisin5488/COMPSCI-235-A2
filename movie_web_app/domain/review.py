@@ -4,7 +4,10 @@ from movie_web_app.domain.movie import Movie
 
 class Review:
     def __init__(self, movie: str, review_text: str, rating: int, user: str):
-        self.__movie = movie
+        if type(movie) is not str:
+            self.__movie = ""
+        else:
+            self.__movie = movie
         if type(review_text) is not str:
             self.__review_text = ""
         else:

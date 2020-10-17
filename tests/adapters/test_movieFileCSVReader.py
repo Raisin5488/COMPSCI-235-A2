@@ -186,4 +186,4 @@ def test_search_actor_normal():
 def test_search_genre_normal():
     filename = 'movie_web_app/adapters/Data1000Movies.csv'
     file_reader = MovieFileCSVReader(filename)
-    assert len(file_reader.get_genre_name("action")) == 352
+    assert len(file_reader.get_genre_name("sci fi")) == 120
