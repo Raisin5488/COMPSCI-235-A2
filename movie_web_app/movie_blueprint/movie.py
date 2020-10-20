@@ -149,7 +149,8 @@ def find_movie_genre():
 @login_required
 def watch_list():
     return render_template(
-        'list_movies.html',
+        'list_watchlist.html',
+        time=repo.repo_instance.get_user(session['username']).time_spent_watching_movies_minutes,
         movies=repo.repo_instance.get_user(session['username']).get_watch_list()
     )
 
@@ -163,7 +164,8 @@ def add_watch_list():
         if movie is not None:
             repo.repo_instance.get_user(session['username']).get_watch_list().add_movie(movie)
         return render_template(
-            'list_movies.html',
+            'list_watchlist.html',
+            time=repo.repo_instance.get_user(session['username']).time_spent_watching_movies_minutes,
             movies=repo.repo_instance.get_user(session['username']).get_watch_list()
         )
     else:
@@ -175,25 +177,17 @@ def add_watch_list():
         )
 
 
-@movie_blueprint.route('/remove_watch_list', methods=['GET', 'Post'])
+@movie_blueprint.route('/watchlist_remove/title=<title>&year=<year>', methods=['GET'])
 @login_required
-def remove_watch_list():
-    form = SearchForm()
-    if form.validate_on_submit():
-        movie = repo.repo_instance.get_exact_movie(form.movie_title.data, form.year.data)
-        if movie is not None:
-            repo.repo_instance.get_user(session['username']).get_watch_list().remove_movie(movie)
-        return render_template(
-            'list_movies.html',
-            movies=repo.repo_instance.get_user(session['username']).get_watch_list()
-        )
-    else:
-        return render_template(
-            'find_movie.html',
-            handler_url=url_for('movie_bp.remove_watch_list'),
-            form=form,
-            search_type='movie_title_year'
-        )
+def watchlist_remove(title, year):
+    movie = repo.repo_instance.get_exact_movie(str(title), int(year))
+    repo.repo_instance.get_user(session['username']).add_runtime(movie.runtime_minutes)
+    repo.repo_instance.get_user(session['username']).get_watch_list().remove_movie(movie)
+    return render_template(
+        'list_watchlist.html',
+        time=repo.repo_instance.get_user(session['username']).time_spent_watching_movies_minutes,
+        movies=repo.repo_instance.get_user(session['username']).get_watch_list()
+    )
 
 
 @movie_blueprint.route('/list_reviews', methods=['GET'])

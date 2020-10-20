@@ -59,3 +59,6 @@ class User:
 
     def get_watch_list(self):
         return self.watch_list
+
+    def add_runtime(self, time):
+        self.__time_spent_watching_movies_minutes += time
