@@ -5,10 +5,15 @@ from movie_web_app.domain.model import Person
 from movie_web_app.adapters.movieFileCSVReader import MovieFileCSVReader
 
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
     
     app.config.from_object('config.Config')
+
+    if test_config is not None:
+        # Load test configuration, and override any configuration settings.
+        app.config.from_mapping(test_config)
+        data_path = app.config['TEST_DATA_PATH']
 
     repo.repo_instance = MovieFileCSVReader("movie_web_app/adapters/Data1000Movies.csv")
 
